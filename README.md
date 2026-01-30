@@ -32,16 +32,18 @@ This project demonstrates a full NLP sentiment pipeline using Xiaohongshu posts:
 ---
 
 ## 📂 项目结构 | Project Structure
-xhs-sentiment-analysis-pytorch/
-│── README.md
-│── data/              # 原始数据 & SQL schema
-│── notebooks/         # Jupyter demo
-│── src/               # 核心代码
-│   ├── data_ingest.py
-│   ├── model_train.py
-│   ├── visualization.py
-│── requirements.txt
-│── future_work.md
+
+brand-sentinel/
+├── README.md              # 项目说明文档
+├── data/                  # 原始数据 & SQL schema
+├── notebooks/             # Jupyter demo 笔记本
+├── src/                   # 核心代码
+│   ├── data_ingest.py     # 数据采集与入库
+│   ├── model_train.py     # 模型训练与评估
+│   ├── visualization.py   # 可视化逻辑
+├── requirements.txt       # 依赖库清单
+└── future_work.md         # 未来扩展计划
+
 
 ---
 
