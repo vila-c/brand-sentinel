@@ -1,28 +1,84 @@
-# BrandSentinel
+# 小红书笔记情绪分析 - PyTorch 实现  
+# Xiaohongshu (XHS) Sentiment Analysis with PyTorch
 
-**Real-time Multi-Platform Brand Monitoring & Automated Weekly Reports SaaS** | 🚀 Stars: 0 (目标 5k+) | 🇨🇳 中文 | 🇬🇧 English
+一个学习型项目：爬取小红书笔记 → 存储到 SQL → 情绪分析（基线 vs 深度学习）→ 可视化结果。  
+A learning project: Crawl Xiaohongshu posts → Store in SQL → Sentiment analysis (baseline vs deep learning) → Visualization.
 
-![Demo Video Placeholder](https://via.placeholder.com/800x450?text=BrandSentinel+Demo)  
-*(视频待上传：输入品牌名 → 实时抓取数据 → 自动生成 PDF 周报)*
+---
 
-## 一句话商业价值
-帮助中小品牌 7×24h 监控全网声量（小红书/抖音/微博/Twitter），自动生成竞品对比周报，已服务 50+ 消费品牌（真实可商用，月订阅 99 元起）。
+## 📌 项目简介 | Project Overview
+本项目以小红书笔记为数据源，展示完整的 NLP 情绪分析流程：  
+- 数据采集与 SQL 存储  
+- 基线模型（SnowNLP / VADER）  
+- 进阶模型（中文 BERT 微调，PyTorch + HuggingFace）  
+- Plotly/Streamlit 可视化  
 
-## 🎯 核心功能 (v1.0)
-- **实时数据抓取**：零成本爬取多平台公开笔记（Playwright 动态反爬）
-- **AI 情绪 & 主题分析**：Llama-3-8B 本地多语言分类（4bit 量化，RTX 友好）
-- **自动周报生成**：每天 8 点 PDF 邮件推送（ReportLab + Jinja2 模板）
-- **Streamlit 仪表盘**：一键部署，企业级前端（支持多品牌监控）
+This project demonstrates a full NLP sentiment pipeline using Xiaohongshu posts:  
+- Data collection & SQL storage  
+- Baseline models (SnowNLP / VADER)  
+- Advanced model (fine-tuned Chinese BERT with PyTorch + HuggingFace)  
+- Interactive visualization with Plotly/Streamlit  
 
-## 🛠 技术亮点 (对标 FAANG JD)
-- **零成本本地部署**：8B 参数大模型全在 RTX 4060 上跑（bitsandbytes + PEFT）
-- **RAG + Function Calling**：生产级链路，处理 10 万+ 条/日 社交数据
-- **可扩展架构**：PostgreSQL 存储 + Redis 缓存，99.9% 成功率
-- **开源友好**：MIT License，所有代码可商用
+---
 
-## 🚀 快速开始 (3 分钟部署)
-```bash
-git clone https://github.com/vila-c/1-brand-sentinel.git
-cd 1-brand-sentinel
-pip install -r requirements.txt
-python app.py  # 启动 Streamlit 仪表盘
+## 🛠 技术栈 | Tech Stack
+- Python 3.9+, pandas, numpy  
+- SQLAlchemy + SQLite/PostgreSQL  
+- HuggingFace Transformers, PyTorch  
+- SnowNLP, VADER  
+- Plotly, Streamlit  
+- 爬虫参考：[Spider_XHS](https://github.com/cv-cat/Spider_XHS)  
+
+---
+
+## 📂 项目结构 | Project Structure
+xhs-sentiment-analysis-pytorch/
+│── README.md
+│── data/              # 原始数据 & SQL schema
+│── notebooks/         # Jupyter demo
+│── src/               # 核心代码
+│   ├── data_ingest.py
+│   ├── model_train.py
+│   ├── visualization.py
+│── requirements.txt
+│── future_work.md
+
+---
+
+## 🔄 子项目拆分 | Sub-projects
+- **A. 数据采集与 SQL 存储**  
+- **B. 数据处理与情绪建模**  
+- **C. 分析与可视化**  
+- **D. 部署与扩展**  
+
+---
+
+## 💻 Demo 区域 | Demo Code
+```python
+# 基线 - SnowNLP
+from snownlp import SnowNLP
+text = "这款面膜真的很好用！毛孔都变小了～"
+s = SnowNLP(text)
+print(f"情感得分: {s.sentiments:.3f}")  # >0.5 偏正面
+
+# 进阶 - BERT
+from transformers import pipeline
+sentiment_pipeline = pipeline("sentiment-analysis", model="uer/roberta-base-finetuned-dianping-chinese")
+result = sentiment_pipeline("这款面膜真的很好用！毛孔都变小了～")
+print(result)  # [{'label': 'POSITIVE', 'score': 0.998}]
+
+📈 结果展示 | Result Showcase
+Sentiment distribution (占位图)
+
+Time trend (占位图)
+
+🚀 未来改进方向 | Future Work
+多语言支持（中文 + 英文）
+
+Docker/Kubernetes 部署
+
+增加更多数据源
+
+📑 数据来源声明 | Data Source
+本项目仅用于学习与技术展示，不涉及商业用途。实际运行请遵守小红书平台的数据使用政策。
+This project is for learning and technical demonstration only, not for commercial use. Please follow Xiaohongshu’s data usage policies.
